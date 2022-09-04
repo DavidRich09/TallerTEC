@@ -1,1 +1,38 @@
-{"idNumber":5,"name":"Roberto","lastName":"Rooriguez","dateAdmisson":"12/23/12","dateBirth":"12/23/12","rol":"mecanico","password":"124213554"}
+[
+  {
+    "idNumber": 42,
+    "name": "string",
+    "lastName": "string",
+    "dateAdmisson": "string",
+    "dateBirth": "string",
+    "rol": "string",
+    "password": "string"
+  },
+  {
+    "idNumber": 12,
+    "name": "string",
+    "lastName": "string",
+    "dateAdmisson": "string",
+    "dateBirth": "string",
+    "rol": "string",
+    "password": "string"
+  },
+  {
+    "idNumber": 112,
+    "name": "string",
+    "lastName": "string",
+    "dateAdmisson": "string",
+    "dateBirth": "string",
+    "rol": "string",
+    "password": "string"
+  },
+  {
+    "idNumber": 9,
+    "name": "string",
+    "lastName": "string",
+    "dateAdmisson": "string",
+    "dateBirth": "string",
+    "rol": "string",
+    "password": "string"
+  }
+]

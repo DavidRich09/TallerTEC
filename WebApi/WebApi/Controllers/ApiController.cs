@@ -13,14 +13,28 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("requestWorker")]
-        public dynamic RequesteWorker()
+        public dynamic RequesteWorker(int id)
         {
-            return new
+
+            Worker worker = jsonManager.RequestWorker(id);
+
+            if (worker == null)
             {
-                id = "1",
-                correo = "google@gmail.com",
-                edad = "19"
-            };
+                return new
+                {
+                    success = false,
+                    message = "worker not exist"
+                    
+                };
+            }
+            else
+            {
+                return new
+                {
+                    success = true,
+                    message = worker
+                };
+            }
         }
 
 
@@ -28,16 +42,28 @@ namespace WebApi.Controllers
         [Route("saveWorker")]
         public dynamic SaveWorker(Worker worker)
         {
-            worker.idNumber = 5;
 
-            jsonManager.SaveWorker (worker);
+            bool requestSuccees = jsonManager.SaveWorker (worker);
 
-            return new
+            if (requestSuccees)
             {
-                success = true,
-                message = "worker saved",
-                result = worker
-            };
+                return new
+                {
+                    success = true,
+                    message = "worker saved",
+                    result = worker
+                };
+            } else
+            {
+                return new
+                {
+                    success = false,
+                    message = "worker repeat",
+                    result = worker
+                };
+            }
+
+        
         }
 
 
