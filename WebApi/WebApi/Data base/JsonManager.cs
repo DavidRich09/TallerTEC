@@ -8,7 +8,7 @@ namespace WebApi.Data_base
 {
     public class JsonManager
     {
-        private static string path = @"..\Data base\";
+        private static string path = @"..\\WebApi\\Data base\\";
         private JsonSerializer serializer = new JsonSerializer();
 
 
