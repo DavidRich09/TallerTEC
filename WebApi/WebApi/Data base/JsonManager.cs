@@ -65,6 +65,52 @@ namespace WebApi.Data_base
 
         }
 
+        public bool SaveClient(Client client)
+        {
+            string fullpath = path + "clients.json";
+
+            List<Client> clientList = LoadClients();
+
+            for (int i = 0; i < clientList.Count ; i++)
+            {
+                if (clientList[i].Id == client.Id)
+                {
+                    return false;
+                }
+            }
+
+            clientList.Add(client);
+
+            string output = JsonConvert.SerializeObject(clientList.ToArray(), Formatting.Indented);
+
+            File.WriteAllText(fullpath, output);
+
+            return true;
+
+        }
+
+        public Client RequestClient(string Id)
+        {
+            List<Client> clientList = LoadClients();
+            for (int i = 0; i < clientList.Count ; i++)
+            {
+                if (clientList[i].Id == Id)
+                {
+                    return clientList[i];
+                }
+            }
+            return null;
+        }
+
+        public List<Client> LoadClients()
+        {
+            string clientList = LoadJson("clients.json");
+
+            var clients = JsonConvert.DeserializeObject<List<Client>>(clientList);
+
+            return clients;
+        }
+
         public string LoadJson(String pathFile)
         {
             string fullPath = path + pathFile;
