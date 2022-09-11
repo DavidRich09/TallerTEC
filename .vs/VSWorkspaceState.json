@@ -3,8 +3,11 @@
     "",
     "\\WebApi",
     "\\WebApi\\WebApi",
-    "\\WebApi\\WebApi\\Controllers"
+    "\\WebApi\\WebApi\\Controllers",
+    "\\WebApi\\WebApi\\Data base",
+    "\\WebApi\\WebApi\\Models",
+    "\\WebApi\\WebApi\\obj"
   ],
-  "SelectedNode": "\\WebApi\\WebApi\\Controllers\\ApiController.cs",
+  "SelectedNode": "\\WebApi\\WebApi\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
