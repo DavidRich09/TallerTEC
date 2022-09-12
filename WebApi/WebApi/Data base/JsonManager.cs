@@ -124,6 +124,143 @@ namespace WebApi.Data_base
 
             return content;
         }
+
+        public bool SaveOffice(Office office)
+        {
+            string fullpath = path + "office.json";
+
+            List<Office> OfficeList = LoadOffices();
+
+            for (int i = 0; i < OfficeList.Count ; i++)
+            {
+                if (OfficeList[i].Name == office.Name)
+                {
+                    return false;
+                }
+            }
+
+            OfficeList.Add(office);
+
+            string output = JsonConvert.SerializeObject(clientList.ToArray(), Formatting.Indented);
+
+            File.WriteAllText(fullpath, output);
+
+            return true;
+
+        }
+
+        public Office RequestOffice(string Name)
+        {
+            List<Office> OfficeList = LoadOffices();
+            for (int i = 0; i < OfficeList.Count ; i++)
+            {
+                if (OfficeList[i].Name == Name)
+                {
+                    return OfficeList[i];
+                }
+            }
+            return null;
+        }
+
+        public List<Offices> LoadOffices()
+        {
+            string OfficeList = LoadJson("clients.json");
+
+            var offices = JsonConvert.DeserializeObject<List<Office>>(OfficeList);
+
+            return offices;
+        }
+
+         public bool SaveQuote(Quote quote)
+        {
+            string fullpath = path + "quote.json";
+
+            List<Quote> QuoteList = LoadQuotes();
+
+            for (int i = 0; i < QuoteList.Count ; i++)
+            {
+                if (QuoteList[i].LicensePlate == quote.LicensePlate)
+                {
+                    return false;
+                }
+            }
+
+            QuoteList.Add(quote);
+
+            string output = JsonConvert.SerializeObject(QuoteList.ToArray(), Formatting.Indented);
+
+            File.WriteAllText(fullpath, output);
+
+            return true;
+
+        }
+
+        public Quote RequestQuote(string licensePlate)
+        {
+            List<Quote> QuoteList = LoadQuotes();
+            for (int i = 0; i < QuoteList.Count ; i++)
+            {
+                if (QuoteList[i].LicensePlate == licensePlate)
+                {
+                    return QuoteList[i];
+                }
+            }
+            return null;
+        }
+
+        public List<Quote> LoadQuotes()
+        {
+            string QuoteList = LoadJson("quote.json");
+
+            var quotes = JsonConvert.DeserializeObject<List<Quote>>(QuoteList);
+
+            return quotes;
+        }
         
+        public bool SaveService(Service service)
+        {
+            string fullpath = path + "service.json";
+
+            List<Service> ServiceList = LoadServices();
+
+            for (int i = 0; i < ServiceList.Count ; i++)
+            {
+                if (ServiceList[i].Name == service.Name)
+                {
+                    return false;
+                }
+            }
+
+            ServiceList.Add(service);
+
+            string output = JsonConvert.SerializeObject(ServiceList.ToArray(), Formatting.Indented);
+
+            File.WriteAllText(fullpath, output);
+
+            return true;
+
+        }
+
+        public Service RequestService(string Name)
+        {
+            List<Service> ServiceList = LoadServices();
+            for (int i = 0; i < ServiceList.Count ; i++)
+            {
+                if (ServiceList[i].Name == Name)
+                {
+                    return ServiceList[i];
+                }
+            }
+            return null;
+        }
+
+        public List<Service> LoadServices()
+        {
+            string ServiceList = LoadJson("service.json");
+
+            var services = JsonConvert.DeserializeObject<List<Service>>(ServiceList);
+
+            return services;
+        }
     }
 }
