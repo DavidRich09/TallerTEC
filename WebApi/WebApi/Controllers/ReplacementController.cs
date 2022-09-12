@@ -4,25 +4,27 @@ using WebApi.Data_base;
 
 namespace WebApi.Controllers
 {
+
     [ApiController]
     [Route("[controller]")]
 
-    public class ProviderController
+    public class ReplacementController
     {
+
         private JsonManager jsonManager = new JsonManager();
 
         [HttpPost]
-        [Route("saveProvider")]
+        [Route("saveReplacement")]
 
-        public dynamic SaveProvider(Provider p)
+        public dynamic SaveReplacement(Replacement p)
         {
-            bool request = jsonManager.SaveProvider(p);
+            bool request = jsonManager.SaveReplacement(p);
             if (request)
             {
                 return new
                 {
                     success = true,
-                    message = "provider saved",
+                    message = "rep saved",
                     result = p
                 };
             }
@@ -31,20 +33,20 @@ namespace WebApi.Controllers
                 return new
                 {
                     success = false,
-                    message = "provider already saved",
+                    message = "rep already saved",
                     result = p
                 };
             }
         }
 
         [HttpGet]
-        [Route("getProvider")]
+        [Route("getReplacement")]
 
-        public dynamic GetProvider(string LegalID)
+        public dynamic GetProvider(string ProvLegalID, string pname)
         {
-            Provider provider = jsonManager.RequestProvider(LegalID);
-            
-            if (provider == null)
+            Replacement rep = jsonManager.RequestReplacement(ProvLegalID, pname);
+
+            if (rep == null)
             {
                 return new
                 {
@@ -58,7 +60,7 @@ namespace WebApi.Controllers
                 return new
                 {
                     success = true,
-                    message = provider
+                    message = rep
                 };
             }
         }

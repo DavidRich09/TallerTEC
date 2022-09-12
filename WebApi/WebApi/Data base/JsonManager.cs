@@ -300,6 +300,52 @@ namespace WebApi.Data_base
             return services;
         }
         
+        public bool SaveReplacement(Replacement part)
+        {
+            string fullpath = path + "replacement.json";
+
+            List<Replacement> ReplacementList = LoadReplacements();
+
+            for (int i = 0; i < ReplacementList.Count ; i++)
+            {
+                if (ReplacementList[i].ProvLegalID == part.ProvLegalID && ReplacementList[i].name == part.name)
+                {
+                    return false;
+                }
+            }
+
+            ReplacementList.Add(part);
+
+            string output = JsonConvert.SerializeObject(ReplacementList.ToArray(), Formatting.Indented);
+
+            File.WriteAllText(fullpath, output);
+
+            return true;
+
+        }
+        
+        public Replacement RequestReplacement(string name, string ProvLegalID)
+        {
+            List<Replacement> ReplacementList = LoadReplacements();
+            for (int i = 0; i < ReplacementList.Count ; i++)
+            {
+                if (ReplacementList[i].ProvLegalID == ProvLegalID && ReplacementList[i].name == name)
+                {
+                    return ReplacementList[i];
+                }
+            }
+            return null;
+        }
+
+        public List<Replacement> LoadReplacements()
+        {
+            string ReplacementList = LoadJson("replacements.json");
+            
+            var replacements = JsonConvert.DeserializeObject<List<Replacement>>(ReplacementList);
+            
+            return replacements;
+        }
+
         public string LoadJson(String pathFile)
         {
             string fullPath = path + pathFile;
