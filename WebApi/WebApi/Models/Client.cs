@@ -22,7 +22,7 @@ namespace WebApi.Models
 
     }
 
-    public class Phones
+    public class ClientPhones
     {
         public string ClientId { get; set; }
 

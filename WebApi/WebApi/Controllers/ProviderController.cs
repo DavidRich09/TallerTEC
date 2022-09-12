@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Data_base;
 
@@ -6,23 +6,24 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ServiceController
+
+    public class ProviderController
     {
         private JsonManager jsonManager = new JsonManager();
 
         [HttpPost]
-        [Route("saveService")]
+        [Route("[saveProvider]")]
 
-        public dynamic SaveService(Service c)
+        public dynamic SaveProvider(Provider p)
         {
-            bool request = jsonManager.SaveService(c);
+            bool request = jsonManager.SaveProvider(p);
             if (request)
             {
                 return new
                 {
                     success = true,
-                    message = "service saved",
-                    result = c
+                    message = "provider saved",
+                    result = p
                 };
             }
             else
@@ -30,25 +31,25 @@ namespace WebApi.Controllers
                 return new
                 {
                     success = false,
-                    message = "service repeat",
-                    result = c
+                    message = "provider already saved",
+                    result = p
                 };
             }
         }
 
         [HttpGet]
-        [Route("requestService")]
-        public dynamic RequesteService(string Name)
+        [Route("[getProvider]")]
+
+        public dynamic GetProvider(string LegalID)
         {
-
-            Service service = jsonManager.RequestService(Name);
-
-            if (service == null)
+            Provider provider = jsonManager.RequestProvider(LegalID);
+            
+            if (provider == null)
             {
                 return new
                 {
                     success = false,
-                    message = "service not registered"
+                    message = "provider not recognized"
 
                 };
             }
@@ -57,7 +58,7 @@ namespace WebApi.Controllers
                 return new
                 {
                     success = true,
-                    message = service
+                    message = provider
                 };
             }
         }

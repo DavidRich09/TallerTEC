@@ -41,9 +41,9 @@ namespace WebApi.Controllers
         public dynamic RequesteQuote(string LicensePlate)
         {
 
-            Quote Quote = jsonManager.RequestOffice(LicensePlate);
+            Quote Quote = jsonManager.RequestQuote(LicensePlate);
 
-            if (quote == null)
+            if (Quote == null)
             {
                 return new
                 {
@@ -57,7 +57,7 @@ namespace WebApi.Controllers
                 return new
                 {
                     success = true,
-                    message = quote
+                    message = Quote
                 };
             }
         }

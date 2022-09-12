@@ -110,19 +110,56 @@ namespace WebApi.Data_base
 
             return clients;
         }
-
-        public string LoadJson(String pathFile)
+        
+        public bool SaveProvider(Provider provider)
         {
-            string fullPath = path + pathFile;
+            string fullpath = path + "providers.json";
+            
+            List<Provider> provList = LoadProviders();
 
-            string content;
-
-            using(var reader = new StreamReader(fullPath))
+            if (provList != null)
             {
-                content = reader.ReadToEnd();
+                for (int i = 0; i < provList.Count; i++)
+                {
+                    if (provList[i].LegalID == provider.LegalID)
+                    {
+                        return false;
+                    }
+                }
+            }
+            provList.Add(provider);
+
+            string output = JsonConvert.SerializeObject(provList.ToArray(), Formatting.Indented);
+            
+            File.WriteAllText(fullpath, output);
+
+            return true;
+        }
+
+        public Provider RequestProvider(string LegalID)
+        {
+            List<Provider> provList = LoadProviders();
+            if (provList != null)
+            {
+                for (int i = 0; i < provList.Count; i++)
+                {
+                    if (provList[i].LegalID == LegalID)
+                    {
+                        return provList[i];
+                    }
+                }
             }
 
-            return content;
+            return null;
+        }
+
+        public List<Provider> LoadProviders()
+        {
+            string provList = LoadJson("providers.json");
+
+            var providers = JsonConvert.DeserializeObject<List<Provider>>(provList);
+
+            return providers;
         }
 
         public bool SaveOffice(Office office)
@@ -141,7 +178,7 @@ namespace WebApi.Data_base
 
             OfficeList.Add(office);
 
-            string output = JsonConvert.SerializeObject(clientList.ToArray(), Formatting.Indented);
+            string output = JsonConvert.SerializeObject(OfficeList.ToArray(), Formatting.Indented);
 
             File.WriteAllText(fullpath, output);
 
@@ -162,7 +199,7 @@ namespace WebApi.Data_base
             return null;
         }
 
-        public List<Offices> LoadOffices()
+        public List<Office> LoadOffices()
         {
             string OfficeList = LoadJson("clients.json");
 
@@ -261,6 +298,20 @@ namespace WebApi.Data_base
             var services = JsonConvert.DeserializeObject<List<Service>>(ServiceList);
 
             return services;
+        }
+        
+        public string LoadJson(String pathFile)
+        {
+            string fullPath = path + pathFile;
+
+            string content;
+
+            using(var reader = new StreamReader(fullPath))
+            {
+                content = reader.ReadToEnd();
+            }
+
+            return content;
         }
     }
 }

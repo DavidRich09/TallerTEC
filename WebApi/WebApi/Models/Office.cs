@@ -21,7 +21,7 @@ namespace WebApi.Models
 
     }
 
-    public class Phones
+    public class OfficePhones
     {
         public string OfficeName { get; set; }
 
