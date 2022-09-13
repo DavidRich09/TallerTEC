@@ -216,7 +216,7 @@ namespace WebApi.Data_base
 
             for (int i = 0; i < QuoteList.Count ; i++)
             {
-                if (QuoteList[i].LicensePlate == quote.LicensePlate)
+                if (QuoteList[i].LicensePlate == quote.LicensePlate && QuoteList[i].Date == quote.Date)
                 {
                     return false;
                 }
@@ -232,12 +232,12 @@ namespace WebApi.Data_base
 
         }
 
-        public Quote RequestQuote(string licensePlate)
+        public Quote RequestQuote(string licensePlate, string Date)
         {
             List<Quote> QuoteList = LoadQuotes();
             for (int i = 0; i < QuoteList.Count ; i++)
             {
-                if (QuoteList[i].LicensePlate == licensePlate)
+                if (QuoteList[i].LicensePlate == licensePlate && QuoteList[i].Date == Date)
                 {
                     return QuoteList[i];
                 }

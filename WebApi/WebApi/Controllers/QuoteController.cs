@@ -38,10 +38,10 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("requestQuote")]
-        public dynamic RequesteQuote(string LicensePlate)
+        public dynamic RequesteQuote(string LicensePlate, string Date)
         {
 
-            Quote Quote = jsonManager.RequestQuote(LicensePlate);
+            Quote Quote = jsonManager.RequestQuote(LicensePlate, Date);
 
             if (Quote == null)
             {

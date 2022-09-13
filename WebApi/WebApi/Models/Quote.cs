@@ -10,6 +10,7 @@ namespace WebApi.Models
         public string Service { get; set; }
         public string Client { get; set; }
         public string Office { get; set; }
+        public string Date { get; set; }
 
     }
 
